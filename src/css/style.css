@@ -91,6 +91,8 @@ h1 {
   -webkit-box-shadow: 0 0 15px black;
           box-shadow: 0 0 15px black;
   border: 1px solid gray;
+  -webkit-transition: all .7s ease-in-out;
+  transition: all .7s ease-in-out;
 }
 
 .wrapper2.active {
@@ -98,6 +100,12 @@ h1 {
           box-shadow: 0 0 15px green;
   background: -webkit-gradient(linear, left top, right top, from(green), to(lightgreen));
   background: linear-gradient(to right, green, lightgreen);
+  -webkit-transition: all 1s ease-in-out;
+  transition: all 1s ease-in-out;
+}
+
+.wrapper2 span {
+  font-size: .3em;
 }
 
 input {
@@ -106,5 +114,30 @@ input {
   font-size: .9em;
   width: 100%;
   border-radius: 5px;
+}
+
+.newGameButton {
+  display: none;
+}
+
+.newGameButton.active {
+  display: block;
+  position: fixed;
+  top: 40%;
+  left: 50%;
+  width: 70%;
+  background: -webkit-gradient(linear, left top, right top, from(black), to(gray));
+  background: linear-gradient(to right, black, gray);
+  color: white;
+  padding: 30px;
+  font-size: 2em;
+  font-weight: bold;
+  border-radius: 15px;
+  border: 1px solid gray;
+  -webkit-box-shadow: 0 0 50px black, inset 0 0 10px white;
+          box-shadow: 0 0 50px black, inset 0 0 10px white;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  text-align: center;
 }
 /*# sourceMappingURL=style.css.map */
