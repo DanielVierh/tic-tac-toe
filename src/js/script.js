@@ -49,6 +49,19 @@ function checkWinner(tileRow) {
     }
 }
 
+//!  Func Button einfrieren Neues Spiel einleiten
+
+
+//! Func Neues Spiel
+
+
+
+
+
+
+
+
+
 //  function numarateTiles() {
 //     for(let i = 1; i <= 9; i++) {
 //         document.getElementById(`tile_${i}`).innerHTML = i;

@@ -1,3 +1,7 @@
+body {
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
 h1 {
   text-align: center;
 }
@@ -49,5 +53,58 @@ h1 {
 
 .wrapper .row .tile:hover {
   background-color: lightblue;
+}
+
+.container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin: 0 auto;
+}
+
+.pointlabel {
+  font-weight: bold;
+  font-size: 2.5em;
+  color: turquoise;
+  margin-top: -15px;
+}
+
+.wrapper2 {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 45%;
+  margin: 0 auto;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  justify-items: center;
+  color: white;
+  background: -webkit-gradient(linear, left top, right top, from(black), to(gray));
+  background: linear-gradient(to right, black, gray);
+  text-align: center;
+  border-radius: 10px;
+  -webkit-box-shadow: 0 0 15px black;
+          box-shadow: 0 0 15px black;
+  border: 1px solid gray;
+}
+
+.wrapper2.active {
+  -webkit-box-shadow: 0 0 15px green;
+          box-shadow: 0 0 15px green;
+  background: -webkit-gradient(linear, left top, right top, from(green), to(lightgreen));
+  background: linear-gradient(to right, green, lightgreen);
+}
+
+input {
+  text-align: center;
+  font-weight: bold;
+  font-size: .9em;
+  width: 100%;
+  border-radius: 5px;
 }
 /*# sourceMappingURL=style.css.map */
