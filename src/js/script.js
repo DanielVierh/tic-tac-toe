@@ -3,6 +3,7 @@
  let usedTiles = [];
  let pointsPlayer1 = 0;
  let pointsPlayer2 = 0;
+ let buttonsEnabled = true;
 
  // Buttons, Labels etc.
  const labelPlayer1 = document.getElementById("player1");
@@ -11,13 +12,15 @@
  const namePlayer2 = document.getElementById("inputPlayer2");
  const outpPoints1 = document.getElementById("outpPoints1");
  const outpPoints2 = document.getElementById("outpPoints2");
-
+ const windowNewGame = document.getElementById("windowNewGame");
+ const outpWinner = document.getElementById("outpWinner");
+ const btnNextRound = document.getElementById("btnNextRound");
 
 
 
  function logButton(id) {
      // Prüfen, ob Tile bereits verwendet
-    if(!usedTiles.includes(id)){
+    if(!usedTiles.includes(id) && buttonsEnabled === true){
         usedTiles.push(id);
         // X oder O
         if(isX === false) {
@@ -48,13 +51,15 @@
         const checkmark = checkWinner(winnerArray[i]);
         try {
             if(checkmark.isWinner === true) {
-                alert(`${checkmark.winnername} hat gewonnen`);
+                outpWinner.innerHTML = `${checkmark.winnername} hat gewonnen`;
                 setPoints();
+                stoppGame();
             }
             if(checkmark.noWinner === true) {
-                alert("Unentschieden");
-                break;
+                outpWinner.innerHTML = `Unentschieden`;
                 setPoints();
+                stoppGame();
+                break;
             }
         } catch (error) {}
     }
@@ -120,10 +125,29 @@ function setPoints() {
     outpPoints2.innerHTML = pointsPlayer2;
 }
 
-//!  Func Button einfrieren Neues Spiel einleiten
+// Func Button einfrieren Neues Spiel einleiten
+function stoppGame() {
+    buttonsEnabled = false;
+    windowNewGame.classList.add("active");
+}
 
 
-//! Func Neues Spiel
+
+// Func Neues Spiel
+btnNextRound.addEventListener("click", ()=> {
+    windowNewGame.classList.remove("active");
+
+    for(let i = 1; i <= 9; i++) {
+        document.getElementById(`tile_${i}`).innerHTML = '';
+    }
+
+     isX = false;
+     usedTiles = [];
+     buttonsEnabled = true;
+})
+
+
+
 
 
 

@@ -96,10 +96,12 @@ input {
     &.active {
         display: block;
         position: fixed;
-        top: 40%;
+        top: 48%;
         left: 50%;
-        width: 70%;
+        width: 75%;
+        height: 350px;
         background: linear-gradient(to right, black, gray);
+        opacity: 0.97;
         color: white;
         padding: 30px;
         font-size: 2em;
@@ -109,6 +111,19 @@ input {
         box-shadow: 0 0 50px black, inset 0 0 10px white;
         transform: translate(-50%, -50%);
         text-align: center;
+    }
+
+    .buttonNextRound {
+        background: linear-gradient(to top, black, gray );
+        width: 50%;
+        margin: 100px auto;
+        border-radius: 15px;
+        height: 50px;   
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 10px;
+        box-shadow: 0 0 15px black;
     }
 
 }

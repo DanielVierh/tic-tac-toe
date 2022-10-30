@@ -124,11 +124,13 @@ input {
 .newGameButton.active {
   display: block;
   position: fixed;
-  top: 40%;
+  top: 48%;
   left: 50%;
-  width: 70%;
+  width: 75%;
+  height: 350px;
   background: -webkit-gradient(linear, left top, right top, from(black), to(gray));
   background: linear-gradient(to right, black, gray);
+  opacity: 0.97;
   color: white;
   padding: 30px;
   font-size: 2em;
@@ -140,5 +142,26 @@ input {
   -webkit-transform: translate(-50%, -50%);
           transform: translate(-50%, -50%);
   text-align: center;
+}
+
+.newGameButton .buttonNextRound {
+  background: -webkit-gradient(linear, left bottom, left top, from(black), to(gray));
+  background: linear-gradient(to top, black, gray);
+  width: 50%;
+  margin: 100px auto;
+  border-radius: 15px;
+  height: 50px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 10px;
+  -webkit-box-shadow: 0 0 15px black;
+          box-shadow: 0 0 15px black;
 }
 /*# sourceMappingURL=style.css.map */
