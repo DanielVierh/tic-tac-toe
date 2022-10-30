@@ -4,6 +4,7 @@
  let pointsPlayer1 = 0;
  let pointsPlayer2 = 0;
  let buttonsEnabled = true;
+ let thereIsAWinner = false;
 
  // Buttons, Labels etc.
  const labelPlayer1 = document.getElementById("player1");
@@ -73,14 +74,14 @@
                 outpWinner.innerHTML = `${checkmark.winnername} hat gewonnen`;
                 setPoints();
                 stoppGame();
-            }
-            if(checkmark.noWinner === true) {
-                outpWinner.innerHTML = `Unentschieden`;
-                setPoints();
-                stoppGame();
                 break;
             }
         } catch (error) {}
+    }
+    if(usedTiles.length === 9 && thereIsAWinner === false) {
+        outpWinner.innerHTML = `Unentschieden`;
+        setPoints();
+        stoppGame();
     }
 }
 
@@ -91,12 +92,10 @@ function checkWinner(tileRow) {
     const val2 = tileRow[1];
     const val3 = tileRow[2];
     let winner = '';
-    let thereIsAWinner = false;
 
     let returnObj = {
         winnername: '',
         isWinner: false,
-        noWinner: false,
     }
 
     if(usedTiles.includes(`tile_${val1}`) && usedTiles.includes(`tile_${val2}`) && usedTiles.includes(`tile_${val3}`)) {
@@ -124,22 +123,14 @@ function checkWinner(tileRow) {
             winner = player1Name2;
         }
 
-        if(thereIsAWinner === true) {
-            returnObj.winnername = winner;
-            returnObj.isWinner = true;
-            return returnObj;
-        }
     }
 
-    console.log('thereIsAWinner', thereIsAWinner);
-    console.log('');
-    if(usedTiles.length === 9 && thereIsAWinner === false) {
-        returnObj.noWinner = true;
-        pointsPlayer1 += 1;
-        pointsPlayer2 += 1;
+    if(thereIsAWinner === true) {
+        returnObj.winnername = winner;
+        returnObj.isWinner = true;
+        console.log('Winner diagnosiziert');
         return returnObj;
     }
-
 }
 
 function setPoints() {
@@ -166,6 +157,7 @@ btnNextRound.addEventListener("click", ()=> {
      randomStart();
      usedTiles = [];
      buttonsEnabled = true;
+     thereIsAWinner = false;
 })
 
 
