@@ -82,7 +82,9 @@
     }
  }
 
-
+////////////////////////////////////////////////////////////////////////
+// Check Funktion
+////////////////////////////////////////////////////////////////////////
  function checkTiles() {
     const winnerArray = ['123','456','789','147','258','369','159','357'];
     for(let i = 0; i < winnerArray.length; i++) {
@@ -156,6 +158,7 @@ function setPoints() {
     outpPoints1.innerHTML = pointsPlayer1;
     outpPoints2.innerHTML = pointsPlayer2;
 }
+
 
 // Func Button einfrieren Neues Spiel einleiten
 function stoppGame() {
