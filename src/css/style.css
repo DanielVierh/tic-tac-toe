@@ -173,6 +173,7 @@ input {
   left: 10px;
   width: 30px;
   height: 30px;
+  cursor: pointer;
 }
 
 .settingWindow {
@@ -198,12 +199,14 @@ input {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
+  cursor: pointer;
 }
 
 .settingWindow .choosebutton {
-  height: 50px;
+  height: 60px;
+  max-width: 300px;
   background-color: black;
-  margin: 30px;
+  margin: 60px auto;
   color: white;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -219,6 +222,8 @@ input {
   font-size: 1.5em;
   -webkit-box-shadow: 0 0 10px black;
           box-shadow: 0 0 10px black;
+  border: 1px solid gray;
+  cursor: pointer;
 }
 
 .settingWindow.active {

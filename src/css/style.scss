@@ -131,6 +131,7 @@ input {
     left: 10px;
     width: 30px;
     height: 30px;
+    cursor: pointer;
 }
 
 .settingWindow {
@@ -149,13 +150,15 @@ input {
         display: flex;
         align-items: center;
         justify-content: center;
+        cursor: pointer;
     }
 
 
     .choosebutton {
-        height: 50px;
+        height: 60px;
+        max-width: 300px;
         background-color: black;
-        margin:30px ;
+        margin:60px auto;
         color: white;
         display: flex;
         justify-content: center;
@@ -164,6 +167,8 @@ input {
         font-weight: bold;
         font-size: 1.5em;
         box-shadow: 0 0 10px black;
+        border: 1px solid gray;
+        cursor: pointer;
     }
 
     &.active {

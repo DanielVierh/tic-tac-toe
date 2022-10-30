@@ -5,7 +5,7 @@
  let pointsPlayer2 = 0;
  let buttonsEnabled = true;
  let thereIsAWinner = false;
- let menVsMashine = false;
+ let menVsMashine = true;
 
  // Buttons, Labels etc.
  const labelPlayer1 = document.getElementById("player1");
@@ -43,9 +43,11 @@
     if(menVsMashine === true ) {
         btnKi.style.color = 'green';
         btnHuman.style.color = 'white';
+        namePlayer2.value = 'Der Gerät'
     }else {
         btnKi.style.color = 'white';
         btnHuman.style.color = 'green';
+        randomStart();
     }
  }
 
@@ -53,8 +55,7 @@
  window.onload = init();
 
  function init() {
-    randomStart();
-    whoIsTheEnemy()
+    whoIsTheEnemy();
  }
 
 
@@ -68,6 +69,12 @@
             document.getElementById(id).innerHTML = 'X';
             labelPlayer1.classList.remove("active");
             labelPlayer2.classList.add("active");
+
+            setTimeout(() => {
+                if(menVsMashine === true && buttonsEnabled === true) {
+                    ki_move();
+                }
+            }, 300);
 
         }else {
             isX = false;
@@ -109,7 +116,7 @@
 
 
 function checkWinner(tileRow) {
-    usedTiles.sort();
+    // usedTiles.sort();
     const val1 = tileRow[0];
     const val2 = tileRow[1];
     const val3 = tileRow[2];
@@ -167,7 +174,6 @@ function stoppGame() {
 }
 
 
-
 // Func Neues Spiel
 btnNextRound.addEventListener("click", ()=> {
     windowNewGame.classList.remove("active");
@@ -176,10 +182,16 @@ btnNextRound.addEventListener("click", ()=> {
         document.getElementById(`tile_${i}`).innerHTML = '';
     }
 
-     randomStart();
      usedTiles = [];
      buttonsEnabled = true;
      thereIsAWinner = false;
+     if(menVsMashine === false) {
+        randomStart();
+     }else {
+        isX = false;
+        labelPlayer1.classList.add("active");
+        labelPlayer2.classList.remove("active");
+     }
 })
 
 
@@ -203,4 +215,85 @@ btnKi.addEventListener("click", ()=> {
 btnHuman.addEventListener("click", ()=> {
     menVsMashine = false;
     whoIsTheEnemy();
+    namePlayer2.value = ''
 });
+
+
+function ki_move() {
+    let targetTile = '';
+    let weight = 0;
+    let weights = [];
+    let highest = -1;
+    let best = -1;
+
+    console.log('Winner', thereIsAWinner);
+
+    const bestCheckmarks = ['139', '137', '397', '791', '123','456','789','147','258','369','159','357'];
+
+    for(let i = 0; i < bestCheckmarks.length; i++) {
+        const posarray = bestCheckmarks[i]
+        const val1 = posarray[0];
+        const val2 = posarray[1];
+        const val3 = posarray[2];
+
+        if(usedTiles.includes(`tile_${val1}`) && document.getElementById(`tile_${val1}`).innerHTML === 'O') {
+            weight+= 2;
+        }
+        if(usedTiles.includes(`tile_${val2}`) && document.getElementById(`tile_${val2}`).innerHTML === 'O') {
+            weight+= 2;
+        }
+        if(usedTiles.includes(`tile_${val3}`) && document.getElementById(`tile_${val3}`).innerHTML === 'O') {
+            weight+= 2;
+        }
+
+        if(!usedTiles.includes(`tile_${val1}`)) {
+            weight+= 1;
+        }
+        if(!usedTiles.includes(`tile_${val2}`)) {
+            weight+= 1;
+        }
+        if(!usedTiles.includes(`tile_${val3}`)) {
+            weight+= 1;
+        }
+
+
+        weights.push(weight);
+        weight = 0;
+    }
+
+// Finde die beste Kombination
+    for(let j = 0; j < weights.length; j++) {
+        if(weights[j] > highest) {
+            highest = weights[j];
+            best = j;
+        }
+    }
+    
+    const bestcombination = bestCheckmarks[best];
+    for(let i = 0; i < bestcombination.length; i++) {
+        if(!usedTiles.includes(`tile_${bestcombination[i]}`)) {
+            targetTile = `tile_${bestcombination[i]}`;
+            break;
+        }
+    }
+
+
+        if(targetTile.length !== 0) {
+            logButton(targetTile); 
+        }else {
+            randomTarget();
+        }
+    
+}
+
+
+function randomTarget() {
+    for(let i = 1; i< usedTiles.length; i++) {
+        if(!usedTiles.includes(`tile_${i}`)) {
+            logButton(`tile_${i}`); 
+            break;
+        }
+    }
+}
+
+
