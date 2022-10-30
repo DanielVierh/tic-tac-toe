@@ -17,6 +17,24 @@
  const btnNextRound = document.getElementById("btnNextRound");
 
 
+ // Zufälliger Spielerstart
+ function randomStart() {
+    const randomNumber = parseInt(Math.random() * 10 + 1);
+    if(randomNumber >= 5) {
+        isX = false;
+        labelPlayer1.classList.add("active");
+        labelPlayer2.classList.remove("active");
+
+    }else {
+        isX = true;
+        labelPlayer1.classList.remove("active");
+        labelPlayer2.classList.add("active");
+    }
+ }
+
+// Init
+ window.onload = randomStart();
+
 
  function logButton(id) {
      // Prüfen, ob Tile bereits verwendet
@@ -43,10 +61,11 @@
  }
 
 
+
  function checkTiles() {
     const winnerArray = ['123','456','789','147','258','369','159','357'];
     for(let i = 0; i < winnerArray.length; i++) {
-// In Schleife werden über func checkwinner die einzelnen Kombinationen geprüft. 
+// In Schleife werden über func checkwinner die einzelnen Kombinationen geprüft.
 // Dort wird ein Rückgabe Objekt erstellt. Dieser wird dann abgefragt
         const checkmark = checkWinner(winnerArray[i]);
         try {
@@ -81,7 +100,7 @@ function checkWinner(tileRow) {
     }
 
     if(usedTiles.includes(`tile_${val1}`) && usedTiles.includes(`tile_${val2}`) && usedTiles.includes(`tile_${val3}`)) {
-        if(document.getElementById(`tile_${val1}`).innerHTML === 'X' 
+        if(document.getElementById(`tile_${val1}`).innerHTML === 'X'
         && document.getElementById(`tile_${val2}`).innerHTML === 'X'
         && document.getElementById(`tile_${val3}`).innerHTML === 'X') {
             let player1Name1 = 'Spieler X';
@@ -93,7 +112,7 @@ function checkWinner(tileRow) {
             winner = player1Name1;
         }
 
-        if(document.getElementById(`tile_${val1}`).innerHTML === 'O' 
+        if(document.getElementById(`tile_${val1}`).innerHTML === 'O'
         && document.getElementById(`tile_${val2}`).innerHTML === 'O'
         && document.getElementById(`tile_${val3}`).innerHTML === 'O') {
             let player1Name2 = 'Spieler O';
@@ -120,7 +139,7 @@ function checkWinner(tileRow) {
         pointsPlayer2 += 1;
         return returnObj;
     }
-    
+
 }
 
 function setPoints() {
@@ -144,7 +163,7 @@ btnNextRound.addEventListener("click", ()=> {
         document.getElementById(`tile_${i}`).innerHTML = '';
     }
 
-     isX = false;
+     randomStart();
      usedTiles = [];
      buttonsEnabled = true;
 })
