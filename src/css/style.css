@@ -74,6 +74,7 @@ h1 {
   display: -ms-flexbox;
   display: flex;
   width: 45%;
+  max-width: 300px;
   margin: 0 auto;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
