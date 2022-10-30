@@ -5,6 +5,7 @@
  let pointsPlayer2 = 0;
  let buttonsEnabled = true;
  let thereIsAWinner = false;
+ let menVsMashine = false;
 
  // Buttons, Labels etc.
  const labelPlayer1 = document.getElementById("player1");
@@ -16,7 +17,11 @@
  const windowNewGame = document.getElementById("windowNewGame");
  const outpWinner = document.getElementById("outpWinner");
  const btnNextRound = document.getElementById("btnNextRound");
-
+ const btnKi = document.getElementById("btnKi");
+ const btnHuman = document.getElementById("btnHuman");
+ const btnSetting = document.getElementById("btnSetting");
+ const winSettings = document.getElementById("winSettings");
+ const btnCloseSettingWindow = document.getElementById("btnCloseSettingWindow");
 
  // Zufälliger Spielerstart
  function randomStart() {
@@ -33,8 +38,24 @@
     }
  }
 
+ // Anzeigen, wer gegen wen spielt. Also gegen Mensch oder Maschine
+ function  whoIsTheEnemy() {
+    if(menVsMashine === true ) {
+        btnKi.style.color = 'green';
+        btnHuman.style.color = 'white';
+    }else {
+        btnKi.style.color = 'white';
+        btnHuman.style.color = 'green';
+    }
+ }
+
 // Init
- window.onload = randomStart();
+ window.onload = init();
+
+ function init() {
+    randomStart();
+    whoIsTheEnemy()
+ }
 
 
  function logButton(id) {
@@ -60,7 +81,6 @@
         }, 200);
     }
  }
-
 
 
  function checkTiles() {
@@ -128,7 +148,6 @@ function checkWinner(tileRow) {
     if(thereIsAWinner === true) {
         returnObj.winnername = winner;
         returnObj.isWinner = true;
-        console.log('Winner diagnosiziert');
         return returnObj;
     }
 }
@@ -161,19 +180,24 @@ btnNextRound.addEventListener("click", ()=> {
 })
 
 
+// Öffne Einstellungsfenster
+btnSetting.addEventListener("click", ()=> {
+    winSettings.classList.add("active");
+});
 
+// Schließe Einstellungsfenster
+btnCloseSettingWindow.addEventListener("click", ()=> {
+    winSettings.classList.remove("active");
+});
 
+// Mensch vs Mashine
+btnKi.addEventListener("click", ()=> {
+    menVsMashine = true;
+    whoIsTheEnemy();
+});
 
-
-
-
-
-
-
-
-//  function numarateTiles() {
-//     for(let i = 1; i <= 9; i++) {
-//         document.getElementById(`tile_${i}`).innerHTML = i;
-//     }
-//  }
- //numarateTiles();
+// Mensch vs Mensch
+btnHuman.addEventListener("click", ()=> {
+    menVsMashine = false;
+    whoIsTheEnemy();
+});
