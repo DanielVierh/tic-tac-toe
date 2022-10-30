@@ -104,13 +104,16 @@ function checkWinner(tileRow) {
             thereIsAWinner = true;
             winner = player1Name2;
         }
+
+        if(thereIsAWinner === true) {
+            returnObj.winnername = winner;
+            returnObj.isWinner = true;
+            return returnObj;
+        }
     }
 
-    if(thereIsAWinner === true) {
-        returnObj.winnername = winner;
-        returnObj.isWinner = true;
-        return returnObj;
-    }
+    console.log('thereIsAWinner', thereIsAWinner);
+    console.log('');
     if(usedTiles.length === 9 && thereIsAWinner === false) {
         returnObj.noWinner = true;
         pointsPlayer1 += 1;
