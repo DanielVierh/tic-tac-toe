@@ -35,6 +35,9 @@
         isX = true;
         labelPlayer1.classList.remove("active");
         labelPlayer2.classList.add("active");
+        if(menVsMashine === true) {
+            ki_move();
+        }
     }
  }
 
@@ -43,7 +46,8 @@
     if(menVsMashine === true ) {
         btnKi.style.color = 'green';
         btnHuman.style.color = 'white';
-        namePlayer2.value = 'Der Gerät'
+        namePlayer2.value = 'Der Gerät';
+        randomStart();
     }else {
         btnKi.style.color = 'white';
         btnHuman.style.color = 'green';
@@ -195,6 +199,16 @@ btnNextRound.addEventListener("click", ()=> {
 })
 
 
+function resetCurrentGame() {
+    pointsPlayer1 = 0;
+    pointsPlayer2 = 0;
+
+}
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Einstellungen
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 // Öffne Einstellungsfenster
 btnSetting.addEventListener("click", ()=> {
     winSettings.classList.add("active");
@@ -215,9 +229,14 @@ btnKi.addEventListener("click", ()=> {
 btnHuman.addEventListener("click", ()=> {
     menVsMashine = false;
     whoIsTheEnemy();
-    namePlayer2.value = ''
+    namePlayer2.value = '';
+    resetCurrentGame();
 });
 
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// KI Move
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 function ki_move() {
     let targetTile = '';
@@ -256,6 +275,17 @@ function ki_move() {
             weight+= 1;
         }
 
+        // if(usedTiles.includes(`tile_${val1}`) && document.getElementById(`tile_${val1}`).innerHTML === 'O') {
+        //     weight+= 2;
+        // }
+        // if(usedTiles.includes(`tile_${val2}`) && document.getElementById(`tile_${val2}`).innerHTML === 'O') {
+        //     weight+= 2;
+        // }
+        // if(usedTiles.includes(`tile_${val3}`) && document.getElementById(`tile_${val3}`).innerHTML === 'O') {
+        //     weight+= 2;
+        // }
+        
+
 
         weights.push(weight);
         weight = 0;
@@ -279,6 +309,7 @@ function ki_move() {
 
 
         if(targetTile.length !== 0) {
+            console.log('targetTile', targetTile);
             logButton(targetTile); 
         }else {
             randomTarget();
@@ -291,6 +322,7 @@ function randomTarget() {
     for(let i = 1; i< usedTiles.length; i++) {
         if(!usedTiles.includes(`tile_${i}`)) {
             logButton(`tile_${i}`); 
+            console.log('targetTile', `tile_${i}`);
             break;
         }
     }
