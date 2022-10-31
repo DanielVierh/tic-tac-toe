@@ -239,15 +239,17 @@ btnHuman.addEventListener("click", ()=> {
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 function ki_move() {
+    console.log('Ki ist am Zug');
     let targetTile = '';
     let weight = 0;
     let weights = [];
     let highest = -1;
     let best = -1;
+    let winnerComboIdentyfied = false;
+    let winnerIndex = -1;
 
-    console.log('Winner', thereIsAWinner);
-
-    const bestCheckmarks = ['139', '137', '397', '791', '123','456','789','147','258','369','159','357'];
+    const bestCheckmarks = ['139', '137', '397', '791'];
+    const winnerCombination = ['123','456','789','147','258','369','159','357']
 
     for(let i = 0; i < bestCheckmarks.length; i++) {
         const posarray = bestCheckmarks[i]
@@ -275,31 +277,82 @@ function ki_move() {
             weight+= 1;
         }
 
-        // if(usedTiles.includes(`tile_${val1}`) && document.getElementById(`tile_${val1}`).innerHTML === 'O') {
-        //     weight+= 2;
-        // }
-        // if(usedTiles.includes(`tile_${val2}`) && document.getElementById(`tile_${val2}`).innerHTML === 'O') {
-        //     weight+= 2;
-        // }
-        // if(usedTiles.includes(`tile_${val3}`) && document.getElementById(`tile_${val3}`).innerHTML === 'O') {
-        //     weight+= 2;
-        // }
-        
 
+        for(let j=0;j<winnerCombination.length;j++){
+            const posarray2 = winnerCombination[j]
+            const val_1 = posarray2[0];
+            const val_2 = posarray2[1];
+            const val_3 = posarray2[2];
+            if(usedTiles.includes(`tile_${val_1}`) && document.getElementById(`tile_${val_1}`).innerHTML === 'X' 
+            && usedTiles.includes(`tile_${val_2}`) && document.getElementById(`tile_${val_2}`).innerHTML === 'X') {
+                winnerComboIdentyfied = true;
+                winnerIndex = j;
+                break;
+            }
+            if(usedTiles.includes(`tile_${val_1}`) && document.getElementById(`tile_${val_1}`).innerHTML === 'X' 
+            && usedTiles.includes(`tile_${val_3}`) && document.getElementById(`tile_${val_3}`).innerHTML === 'X') {
+                winnerComboIdentyfied = true;
+                winnerIndex = j;
+                break;
+            }
+            if(usedTiles.includes(`tile_${val_3}`) && document.getElementById(`tile_${val_3}`).innerHTML === 'X' 
+            && usedTiles.includes(`tile_${val_2}`) && document.getElementById(`tile_${val_2}`).innerHTML === 'X') {
+                winnerComboIdentyfied = true;
+                winnerIndex = j;
+                break;
+            }
+        }
+
+
+
+
+        for(let j=0;j<winnerCombination.length;j++){
+            const posarray2 = winnerCombination[j]
+            const val_1 = posarray2[0];
+            const val_2 = posarray2[1];
+            const val_3 = posarray2[2];
+            if(usedTiles.includes(`tile_${val_1}`) && document.getElementById(`tile_${val_1}`).innerHTML === 'O' 
+            && usedTiles.includes(`tile_${val_2}`) && document.getElementById(`tile_${val_2}`).innerHTML === 'O') {
+                winnerComboIdentyfied = true;
+                winnerIndex = j;
+                break;
+            }
+            if(usedTiles.includes(`tile_${val_1}`) && document.getElementById(`tile_${val_1}`).innerHTML === 'O' 
+            && usedTiles.includes(`tile_${val_3}`) && document.getElementById(`tile_${val_3}`).innerHTML === 'O') {
+                winnerComboIdentyfied = true;
+                winnerIndex = j;
+                break;
+            }
+            if(usedTiles.includes(`tile_${val_3}`) && document.getElementById(`tile_${val_3}`).innerHTML === 'O' 
+            && usedTiles.includes(`tile_${val_2}`) && document.getElementById(`tile_${val_2}`).innerHTML === 'O') {
+                winnerComboIdentyfied = true;
+                winnerIndex = j;
+                break;
+            }
+        }
+        
 
         weights.push(weight);
         weight = 0;
+
     }
 
-// Finde die beste Kombination
-    for(let j = 0; j < weights.length; j++) {
-        if(weights[j] > highest) {
-            highest = weights[j];
-            best = j;
+
+    let bestcombination = [];
+
+    if(winnerComboIdentyfied === true) {
+        bestcombination = winnerCombination[winnerIndex];
+    }else {
+        // Finde die beste Kombination
+        for(let j = 0; j < weights.length; j++) {
+            if(weights[j] > highest) {
+                highest = weights[j];
+                best = j;
+            }
         }
+        bestcombination = bestCheckmarks[best]
     }
-    
-    const bestcombination = bestCheckmarks[best];
+    console.log('bestcombination', bestcombination);
     for(let i = 0; i < bestcombination.length; i++) {
         if(!usedTiles.includes(`tile_${bestcombination[i]}`)) {
             targetTile = `tile_${bestcombination[i]}`;
@@ -307,10 +360,10 @@ function ki_move() {
         }
     }
 
-
+        console.log('targetTile', targetTile, targetTile.length);
         if(targetTile.length !== 0) {
-            console.log('targetTile', targetTile);
             logButton(targetTile); 
+            console.log('Mensch ist am Zug');
         }else {
             randomTarget();
         }
@@ -322,7 +375,8 @@ function randomTarget() {
     for(let i = 1; i< usedTiles.length; i++) {
         if(!usedTiles.includes(`tile_${i}`)) {
             logButton(`tile_${i}`); 
-            console.log('targetTile', `tile_${i}`);
+            console.log('Random Fall ist eingetreten');
+            console.log('Mensch ist am Zug');
             break;
         }
     }
