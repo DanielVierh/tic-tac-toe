@@ -5,7 +5,7 @@
  let pointsPlayer2 = 0;
  let buttonsEnabled = true;
  let thereIsAWinner = false;
- let menVsMashine = true;
+ let menVsMashine = false;
 
  // Buttons, Labels etc.
  const labelPlayer1 = document.getElementById("player1");
@@ -22,6 +22,10 @@
  const btnSetting = document.getElementById("btnSetting");
  const winSettings = document.getElementById("winSettings");
  const btnCloseSettingWindow = document.getElementById("btnCloseSettingWindow");
+
+ let tictactoeSaveObj = {
+     vsWho: 'HumenVsHumen'
+ }
 
  // Zufälliger Spielerstart
  function randomStart() {
@@ -43,6 +47,8 @@
 
  // Anzeigen, wer gegen wen spielt. Also gegen Mensch oder Maschine
  function  whoIsTheEnemy() {
+     console.log('menVsMashine', menVsMashine);
+     
     if(menVsMashine === true ) {
         btnKi.style.color = 'green';
         btnHuman.style.color = 'white';
@@ -59,8 +65,35 @@
  window.onload = init();
 
  function init() {
-    whoIsTheEnemy();
+    load_Data_from_Storage();
+    setTimeout(() => {
+        whoIsTheEnemy();
+    }, 400);
+    
  }
+
+
+ function load_Data_from_Storage() {
+    if (localStorage.getItem('tictactoeSaveObj') != null) {
+        tictactoeSaveObj = JSON.parse(localStorage.getItem('tictactoeSaveObj'));
+        console.log('tictactoeSaveObj', tictactoeSaveObj);
+        try {
+            if(tictactoeSaveObj.vsWho === 'HumenVsHumen') {
+                menVsMashine = false;
+            }else {
+                menVsMashine = true;
+            }
+        } catch (error) {
+            console.warn('Loadingerror', error)
+        }
+    } else {
+        console.log('Save Obj konnte nicht geladen werden');
+    }
+}
+
+function save_into_Storage() {
+    localStorage.setItem('tictactoeSaveObj', JSON.stringify(tictactoeSaveObj));
+}
 
 
  function logButton(id) {
@@ -221,16 +254,16 @@ btnCloseSettingWindow.addEventListener("click", ()=> {
 
 // Mensch vs Mashine
 btnKi.addEventListener("click", ()=> {
-    menVsMashine = true;
-    whoIsTheEnemy();
+    tictactoeSaveObj.vsWho = 'HumenVsKi'
+    save_into_Storage();
+    location.reload();
 });
 
 // Mensch vs Mensch
 btnHuman.addEventListener("click", ()=> {
-    menVsMashine = false;
-    whoIsTheEnemy();
-    namePlayer2.value = '';
-    resetCurrentGame();
+    tictactoeSaveObj.vsWho = 'HumenVsHumen';
+    save_into_Storage();
+    location.reload();
 });
 
 
